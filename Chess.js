@@ -175,6 +175,139 @@ Skeleton.prototype.m_findAllRightsidePossibleMoves= function(srcPlayerPossibleMo
     return numPossibleMoves;
 }
 
+Skeleton.prototype.m_findAllForwardDiagonalUpPossibleMoves = function(srcPlayerPossibleMoves, numPossibleMoves){
+
+    var i = this.m_playerX - 1;
+    var j = this.m_playerY + 1;
+
+    // Upwards
+    while(i >= 0 && j < CHESS_BOARD_SIZE){
+
+        if(virtualChessBoard[i][j] == undefined){
+            srcPlayerPossibleMoves[numPossibleMoves] = {    x: i,
+                                                            y: j
+                                                        };
+            numPossibleMoves++;
+        }
+        else if(virtualChessBoard[i][j].m_GetPlayerColor() != this.m_playerColor){
+            srcPlayerPossibleMoves[numPossibleMoves] = {    x: i,
+                                                            y: j
+                                                        };
+            numPossibleMoves++;
+            break;
+        }
+        else{
+            break;
+        }
+        
+        --i;
+        ++j;
+
+
+    }
+
+    return numPossibleMoves;
+}
+
+Skeleton.prototype.m_findAllForwardDiagonalDownPossibleMoves = function(srcPlayerPossibleMoves, numPossibleMoves){
+
+    var i = this.m_playerX + 1;
+    var j = this.m_playerY - 1;
+
+    // Downwards
+    while(i < CHESS_BOARD_SIZE && j >= 0){
+
+        if(virtualChessBoard[i][j] == undefined){
+            srcPlayerPossibleMoves[numPossibleMoves] = {    x: i,
+                                                            y: j
+                                                        };
+            numPossibleMoves++;
+        }
+        else if(virtualChessBoard[i][j].m_GetPlayerColor() != this.m_playerColor){
+            srcPlayerPossibleMoves[numPossibleMoves] = {    x: i,
+                                                            y: j
+                                                        };
+            numPossibleMoves++;
+            break;
+        }
+        else{
+            break;
+        }
+        
+        ++i;
+        --j;
+
+
+    }
+    return numPossibleMoves;
+}
+
+Skeleton.prototype.m_findAllBackwardDiagonalUpPossibleMoves = function(srcPlayerPossibleMoves, numPossibleMoves){
+
+    var i = this.m_playerX - 1;
+    var j = this.m_playerY - 1;
+
+    // Downwards
+    while(i >= 0 && j >= 0){
+
+        if(virtualChessBoard[i][j] == undefined){
+            srcPlayerPossibleMoves[numPossibleMoves] = {    x: i,
+                                                            y: j
+                                                        };
+            numPossibleMoves++;
+        }
+        else if(virtualChessBoard[i][j].m_GetPlayerColor() != this.m_playerColor){
+            srcPlayerPossibleMoves[numPossibleMoves] = {    x: i,
+                                                            y: j
+                                                        };
+            numPossibleMoves++;
+            break;
+        }
+        else{
+            break;
+        }
+        
+        --i;
+        --j;
+
+
+    }
+
+    return numPossibleMoves;
+}
+Skeleton.prototype.m_findAllBackwardDiagonalDownPossibleMoves = function(srcPlayerPossibleMoves, numPossibleMoves){
+
+    var i = this.m_playerX + 1;
+    var j = this.m_playerY + 1;
+
+    // Downwards
+    while(i < CHESS_BOARD_SIZE && j < CHESS_BOARD_SIZE){
+
+        if(virtualChessBoard[i][j] == undefined){
+            srcPlayerPossibleMoves[numPossibleMoves] = {    x: i,
+                                                            y: j
+                                                        };
+            numPossibleMoves++;
+        }
+        else if(virtualChessBoard[i][j].m_GetPlayerColor() != this.m_playerColor){
+            srcPlayerPossibleMoves[numPossibleMoves] = {    x: i,
+                                                            y: j
+                                                        };
+            numPossibleMoves++;
+            break;
+        }
+        else{
+            break;
+        }
+        
+        ++i;
+        ++j;
+
+
+    }
+    return numPossibleMoves;
+}
+
 
 
 var King = function(id, playerColor, xPos, yPos){
@@ -298,6 +431,11 @@ Camel.prototype = Object.create(Skeleton.prototype);
 Camel.prototype.constructor = Camel;
 Camel.prototype.m_findAllPossibleMoves = function(srcPlayerPossibleMoves){
     var numPossibleMoves = 0;
+
+    numPossibleMoves = this.m_findAllForwardDiagonalUpPossibleMoves     (srcPlayerPossibleMoves, numPossibleMoves);
+    numPossibleMoves = this.m_findAllForwardDiagonalDownPossibleMoves   (srcPlayerPossibleMoves, numPossibleMoves);
+    numPossibleMoves = this.m_findAllBackwardDiagonalUpPossibleMoves    (srcPlayerPossibleMoves, numPossibleMoves);
+    numPossibleMoves = this.m_findAllBackwardDiagonalDownPossibleMoves  (srcPlayerPossibleMoves, numPossibleMoves);
 
     return numPossibleMoves;
 }
