@@ -48,6 +48,133 @@ Skeleton.prototype.m_GetPlayerID = function(){
     return this.m_playerID;
 }
 
+Skeleton.prototype.m_findAllUpwardPossibleMoves = function(srcPlayerPossibleMoves, numPossibleMoves){
+
+    var i   = this.m_playerX - 1;
+    const j = this.m_playerY;
+
+    while(i >= 0){
+        
+        if(virtualChessBoard[i][j] == undefined){
+            srcPlayerPossibleMoves[numPossibleMoves] = {    x: i,
+                                                            y: j
+                                                        };
+            numPossibleMoves++;
+        }
+        else if(virtualChessBoard[i][j].m_GetPlayerColor() != this.m_playerColor){
+            srcPlayerPossibleMoves[numPossibleMoves] = {    x: i,
+                                                            y: j
+                                                        };
+            numPossibleMoves++;
+            break;
+        }
+        else{
+            break;
+        }
+    
+        --i;
+
+    }
+
+    return numPossibleMoves;
+}
+
+Skeleton.prototype.m_findAllDownwardPossibleMoves = function(srcPlayerPossibleMoves, numPossibleMoves){
+
+    var i   = this.m_playerX + 1;
+    const j = this.m_playerY;
+
+    while(i < CHESS_BOARD_SIZE){
+        
+
+        if(virtualChessBoard[i][j] == undefined){
+            srcPlayerPossibleMoves[numPossibleMoves] = {    x: i,
+                                                            y: j
+                                                        };
+            numPossibleMoves++;
+        }
+        else if(virtualChessBoard[i][j].m_GetPlayerColor() != this.m_playerColor){
+            srcPlayerPossibleMoves[numPossibleMoves] = {    x: i,
+                                                            y: j
+                                                        };
+            numPossibleMoves++;
+            break;
+        }
+        else{
+            break;
+        }
+        
+        ++i;
+
+    }
+
+    return numPossibleMoves;
+}
+
+Skeleton.prototype.m_findAllLeftsidePossibleMoves = function(srcPlayerPossibleMoves, numPossibleMoves){
+
+    const i   = this.m_playerX;
+    var j     = this.m_playerY - 1;
+
+    while(j >= 0){
+        
+
+        if(virtualChessBoard[i][j] == undefined){
+            srcPlayerPossibleMoves[numPossibleMoves] = {    x: i,
+                                                            y: j
+                                                        };
+            numPossibleMoves++;
+        }
+        else if(virtualChessBoard[i][j].m_GetPlayerColor() != this.m_playerColor){
+            srcPlayerPossibleMoves[numPossibleMoves] = {    x: i,
+                                                            y: j
+                                                        };
+            numPossibleMoves++;
+            break;
+        }
+        else{
+            break;
+        }
+
+        --j;
+
+    }
+
+    return numPossibleMoves;
+}
+
+Skeleton.prototype.m_findAllRightsidePossibleMoves= function(srcPlayerPossibleMoves, numPossibleMoves){
+
+    const i   = this.m_playerX;
+    var j     = this.m_playerY + 1;
+
+    while(j < CHESS_BOARD_SIZE){
+        
+
+        if(virtualChessBoard[i][j] == undefined){
+            srcPlayerPossibleMoves[numPossibleMoves] = {    x: i,
+                                                            y: j
+                                                        };
+            numPossibleMoves++;
+        }
+        else if(virtualChessBoard[i][j].m_GetPlayerColor() != this.m_playerColor){
+            srcPlayerPossibleMoves[numPossibleMoves] = {    x: i,
+                                                            y: j
+                                                        };
+            numPossibleMoves++;
+            break;
+        }
+        else{
+            break;
+        }
+        
+        ++j;
+
+    }
+
+    return numPossibleMoves;
+}
+
 
 
 var King = function(id, playerColor, xPos, yPos){
@@ -136,6 +263,11 @@ Elephant.prototype = Object.create(Skeleton.prototype);
 Elephant.prototype.constructor = Elephant;
 Elephant.prototype.m_findAllPossibleMoves = function(srcPlayerPossibleMoves){
     var numPossibleMoves = 0;
+
+    numPossibleMoves = this.m_findAllUpwardPossibleMoves     (srcPlayerPossibleMoves, numPossibleMoves);
+    numPossibleMoves = this.m_findAllDownwardPossibleMoves   (srcPlayerPossibleMoves, numPossibleMoves);
+    numPossibleMoves = this.m_findAllLeftsidePossibleMoves   (srcPlayerPossibleMoves, numPossibleMoves);
+    numPossibleMoves = this.m_findAllRightsidePossibleMoves  (srcPlayerPossibleMoves, numPossibleMoves);
 
     return numPossibleMoves;
    
