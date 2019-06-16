@@ -18,7 +18,10 @@ var Skeleton = function(id,playerColor, xPos, yPos){
 }
 Skeleton.prototype.m_GetPosition = function(){
 
-    return {m_playerX, m_playerY};
+    return {
+                x: this.m_playerX, 
+                y: this.m_playerY
+            };
 }
 
 Skeleton.prototype.m_SetPosition = function(xPos, yPos){
@@ -55,6 +58,12 @@ var King = function(id, playerColor, xPos, yPos){
 }
 King.prototype = Object.create(Skeleton.prototype);
 King.prototype.constructor = King;
+King.prototype.m_findAllPossibleMoves = function(srcPlayerPossibleMoves){
+    var numPossibleMoves = 0;
+
+    return numPossibleMoves;
+}
+
 
 
 var Queen = function(id, playerColor, xPos, yPos){
@@ -65,8 +74,10 @@ var Queen = function(id, playerColor, xPos, yPos){
 }
 Queen.prototype = Object.create(Skeleton.prototype);
 Queen.prototype.constructor = Queen;
-Queen.prototype.m_canTraversePath = function(finalX, finalY){
+Queen.prototype.m_findAllPossibleMoves = function(srcPlayerPossibleMoves){
+    var numPossibleMoves = 0;
 
+    return numPossibleMoves;
 }
 
 var Soldier = function(id, playerColor, xPos, yPos){
@@ -77,8 +88,10 @@ var Soldier = function(id, playerColor, xPos, yPos){
 }
 Soldier.prototype = Object.create(Skeleton.prototype);
 Soldier.prototype.constructor = Soldier;
-Soldier.prototype.m_canTraversePath = function(finalX, finalY){
+Soldier.prototype.m_findAllPossibleMoves = function(srcPlayerPossibleMoves){
+    var numPossibleMoves = 0;
 
+    return numPossibleMoves;
 }
 
 var Elephant = function(id, playerColor, xPos, yPos){
@@ -89,8 +102,10 @@ var Elephant = function(id, playerColor, xPos, yPos){
 }
 Elephant.prototype = Object.create(Skeleton.prototype);
 Elephant.prototype.constructor = Elephant;
-Elephant.prototype.m_canTraversePath = function(finalX, finalY){
+Elephant.prototype.m_findAllPossibleMoves = function(srcPlayerPossibleMoves){
+    var numPossibleMoves = 0;
 
+    return numPossibleMoves;
    
 }
 
@@ -102,6 +117,12 @@ var Horse = function(id, playerColor, xPos, yPos){
 }
 Horse.prototype = Object.create(Skeleton.prototype);
 Horse.prototype.constructor = Horse;
+Horse.prototype.m_findAllPossibleMoves = function(srcPlayerPossibleMoves){
+    var numPossibleMoves = 0;
+
+    return numPossibleMoves;
+}
+
 
 var Camel = function(id, playerColor, xPos, yPos){
 
@@ -111,8 +132,10 @@ var Camel = function(id, playerColor, xPos, yPos){
 }
 Camel.prototype = Object.create(Skeleton.prototype);
 Camel.prototype.constructor = Camel;
-Camel.prototype.m_canTraversePath = function(finalX, finalY){
+Camel.prototype.m_findAllPossibleMoves = function(srcPlayerPossibleMoves){
+    var numPossibleMoves = 0;
 
+    return numPossibleMoves;
 }
 
 
