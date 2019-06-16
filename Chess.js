@@ -89,7 +89,39 @@ var Soldier = function(id, playerColor, xPos, yPos){
 Soldier.prototype = Object.create(Skeleton.prototype);
 Soldier.prototype.constructor = Soldier;
 Soldier.prototype.m_findAllPossibleMoves = function(srcPlayerPossibleMoves){
+    
     var numPossibleMoves = 0;
+
+    var direction;
+    if(this.m_playerColor == BLACK){
+        direction   = -1;
+    }else{
+        direction   = 1;
+    }
+
+
+    // Forward Movement of Soldier
+    if(virtualChessBoard[this.m_playerX + direction][this.m_playerY] == undefined){
+        srcPlayerPossibleMoves[numPossibleMoves] = { x : this.m_playerX + direction,
+                                                     y : this.m_playerY};
+        numPossibleMoves++;
+    }
+
+    // Left Side Movement
+    if(this.m_playerY-1 >= 0 &&  virtualChessBoard[this.m_playerX + direction][this.m_playerY - 1] != undefined && virtualChessBoard[this.m_playerX + direction][this.m_playerY - 1].m_GetPlayerColor() != this.m_playerColor ){
+
+        srcPlayerPossibleMoves[numPossibleMoves] = { x : this.m_playerX + direction,
+                                                     y : this.m_playerY - 1};
+        numPossibleMoves++;
+    }
+
+    // Right Side Movement
+    if(this.m_playerY+1 < CHESS_BOARD_SIZE &&  virtualChessBoard[this.m_playerX + direction][this.m_playerY + 1] != undefined && virtualChessBoard[this.m_playerX + direction][this.m_playerY + 1].m_GetPlayerColor() != this.m_playerColor ){
+
+        srcPlayerPossibleMoves[numPossibleMoves] = { x : this.m_playerX + direction,
+                                                     y : this.m_playerY + 1};
+        numPossibleMoves++;
+    }
 
     return numPossibleMoves;
 }
