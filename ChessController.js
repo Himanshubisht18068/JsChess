@@ -18,6 +18,16 @@ function findAllPossibleMoves(srcPlayer){
     numPossibleMoves = srcPlayer.m_findAllPossibleMoves(srcPlayerPossibleMoves);
 }
 
+function isMovePossible(targetCoordinateX, targetCoordinateY, srcPlayerPossibleMoves, numPossibleMoves){
+    for(var i = 0; i < numPossibleMoves; ++i){
+        if(srcPlayerPossibleMoves[i].x == targetCoordinateX && srcPlayerPossibleMoves[i].y == targetCoordinateY){
+            return true;
+        }
+    }
+
+    return false;
+}
+
 function iAmClicked(strCoordinate) {
 
     var indexX = parseInt(strCoordinate[0], 10);
@@ -48,10 +58,10 @@ function iAmClicked(strCoordinate) {
         }
 
 
-        // highLightPossibleMoves() TODO:
+        // highLightPossibleMoves(srcPlayerPossibleMoves, numPossibleMoves) TODO:
 
         if(DEBUG){
-            console.log("INFO: Player Selected, Yo.");
+            console.log("INFO: Player Selected.");
         }
     }
     else{
@@ -66,6 +76,7 @@ function iAmClicked(strCoordinate) {
                 console.log("INFO: Player Un-Selected.");
             }
 
+            // highLightPossibleMoves(srcPlayerPossibleMoves, numPossibleMoves) TODO:
             return;
 
         }
@@ -87,6 +98,10 @@ function iAmClicked(strCoordinate) {
                     numWhiteDeadPlayers++;
                 }
 
+                if(DEBUG){
+                    console.log("INFO: You Killed " + targetPlayer.m_GetPlayerID());
+                }
+
             }
 
             var srcPlayer = virtualChessBoard[srcCoordinateX][srcCoordinateY];
@@ -98,6 +113,9 @@ function iAmClicked(strCoordinate) {
             if(DEBUG){
                 console.log("INFO: Player Moved.")
             }
+
+            // highLightPossibleMoves(srcPlayerPossibleMoves, numPossibleMoves) TODO:
+
 
             // Next Player Turn
             whoseTurn = !whoseTurn;
