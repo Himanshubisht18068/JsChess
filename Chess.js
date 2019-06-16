@@ -337,6 +337,16 @@ Queen.prototype.constructor = Queen;
 Queen.prototype.m_findAllPossibleMoves = function(srcPlayerPossibleMoves){
     var numPossibleMoves = 0;
 
+    numPossibleMoves = this.m_findAllUpwardPossibleMoves     (srcPlayerPossibleMoves, numPossibleMoves);
+    numPossibleMoves = this.m_findAllDownwardPossibleMoves   (srcPlayerPossibleMoves, numPossibleMoves);
+    numPossibleMoves = this.m_findAllLeftsidePossibleMoves   (srcPlayerPossibleMoves, numPossibleMoves);
+    numPossibleMoves = this.m_findAllRightsidePossibleMoves  (srcPlayerPossibleMoves, numPossibleMoves);
+
+    numPossibleMoves = this.m_findAllForwardDiagonalUpPossibleMoves     (srcPlayerPossibleMoves, numPossibleMoves);
+    numPossibleMoves = this.m_findAllForwardDiagonalDownPossibleMoves   (srcPlayerPossibleMoves, numPossibleMoves);
+    numPossibleMoves = this.m_findAllBackwardDiagonalUpPossibleMoves    (srcPlayerPossibleMoves, numPossibleMoves);
+    numPossibleMoves = this.m_findAllBackwardDiagonalDownPossibleMoves  (srcPlayerPossibleMoves, numPossibleMoves);
+
     return numPossibleMoves;
 }
 
@@ -416,6 +426,84 @@ Horse.prototype = Object.create(Skeleton.prototype);
 Horse.prototype.constructor = Horse;
 Horse.prototype.m_findAllPossibleMoves = function(srcPlayerPossibleMoves){
     var numPossibleMoves = 0;
+
+    const i = this.m_playerX;
+    const j = this.m_playerY;
+
+    // Forward
+    if(i-2 >= 0 && virtualChessBoard[i-1][j] == undefined && virtualChessBoard[i-2][j] == undefined){
+
+        //Left Step
+        if((j-1 >= 0) && (virtualChessBoard[i-2][j-1] == undefined || virtualChessBoard[i-2][j-1].m_GetPlayerColor() != this.m_playerColor)){
+
+            srcPlayerPossibleMoves[numPossibleMoves] = { x: i-2, y: j-1 };
+            numPossibleMoves++;
+        }
+
+        //Right Step
+        if((j+1 < CHESS_BOARD_SIZE) && (virtualChessBoard[i-2][j+1] == undefined || virtualChessBoard[i-2][j+1].m_GetPlayerColor() != this.m_playerColor)){
+
+            srcPlayerPossibleMoves[numPossibleMoves] = { x: i-2, y: j+1 };
+            numPossibleMoves++;
+        }
+    }
+
+
+    // Backward
+    if(i+2 < CHESS_BOARD_SIZE && virtualChessBoard[i+1][j] == undefined && virtualChessBoard[i+2][j] == undefined){
+
+        //Left Step
+        if((j-1 >= 0) && (virtualChessBoard[i+2][j-1] == undefined || virtualChessBoard[i+2][j-1].m_GetPlayerColor() != this.m_playerColor)){
+
+            srcPlayerPossibleMoves[numPossibleMoves] = { x: i+2, y: j-1 };
+            numPossibleMoves++;
+        }
+        //Right Step
+        if((j+1 < CHESS_BOARD_SIZE ) && (virtualChessBoard[i+2][j+1] == undefined || virtualChessBoard[i+2][j+1].m_GetPlayerColor() != this.m_playerColor)){
+
+            srcPlayerPossibleMoves[numPossibleMoves] = { x: i+2, y: j+1 };
+            numPossibleMoves++;
+        }
+    }
+
+
+    // RightSide
+    if(j+2 < CHESS_BOARD_SIZE && virtualChessBoard[i][j+1] == undefined && virtualChessBoard[i][j+2] == undefined){
+
+        // Upward Step 
+        if((i-1 >= 0) && (virtualChessBoard[i-1][j+2] == undefined || virtualChessBoard[i-1][j+2].m_GetPlayerColor() != this.m_playerColor)){
+
+            srcPlayerPossibleMoves[numPossibleMoves] = { x: i-1, y: j+2 };
+            numPossibleMoves++;
+        }
+
+        // Downward Step
+        if((i+1 < CHESS_BOARD_SIZE) && (virtualChessBoard[i+1][j+2] == undefined || virtualChessBoard[i+1][j+2].m_GetPlayerColor() != this.m_playerColor)){
+
+            srcPlayerPossibleMoves[numPossibleMoves] = { x: i+1, y: j+2 };
+            numPossibleMoves++;
+        }
+
+    }
+
+    // LeftSide
+    if(j-2 >= 0 && virtualChessBoard[i][j-1] == undefined && virtualChessBoard[i][j-2] == undefined){
+
+        // Upward Step 
+        if((i-1 >= 0) && (virtualChessBoard[i-1][j-2] == undefined || virtualChessBoard[i-1][j-2].m_GetPlayerColor() != this.m_playerColor)){
+
+            srcPlayerPossibleMoves[numPossibleMoves] = { x: i-1, y: j-2 };
+            numPossibleMoves++;
+        }
+
+        // Downward Step
+        if((i+1 < CHESS_BOARD_SIZE) && (virtualChessBoard[i+1][j-2] == undefined || virtualChessBoard[i+1][j-2].m_GetPlayerColor() != this.m_playerColor)){
+
+            srcPlayerPossibleMoves[numPossibleMoves] = { x: i+1, y: j-2 };
+            numPossibleMoves++;
+        }
+
+    }
 
     return numPossibleMoves;
 }
