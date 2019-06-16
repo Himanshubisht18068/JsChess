@@ -58,3 +58,8 @@ function init(){
 }
 
 init();
+
+if(DEBUG){
+    console.log("INFO: BLACK PLAYER TURN...");
+}
+
