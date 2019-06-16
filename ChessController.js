@@ -62,6 +62,10 @@ function iAmClicked(strCoordinate) {
 
         if(DEBUG){
             console.log("INFO: Player Selected.");
+            console.log("INFO: Possible Moves.");
+            for(var i = 0; i < numPossibleMoves; ++i){
+                console.log(srcPlayerPossibleMoves[i].x + " " + srcPlayerPossibleMoves[i].y);
+            }
         }
     }
     else{
@@ -77,6 +81,7 @@ function iAmClicked(strCoordinate) {
             }
 
             // highLightPossibleMoves(srcPlayerPossibleMoves, numPossibleMoves) TODO:
+            numClicks = 0;
             return;
 
         }
